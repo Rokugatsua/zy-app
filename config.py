@@ -12,8 +12,8 @@ class cfgDir:
 class cfgInfo:
     AppName = "Zy App"
     AppVersion = "Version 00.0001"
-    sts = {"ud":"Under Development","bb":"Big Bug","s":"Stable"}
-    AppStatus = sts["ud"]
+    sts = {"Under Development":"ud","Big Bug":"bb","Stable":"s"}
+    AppStatus = sts["Under Development"]
     
 
 
