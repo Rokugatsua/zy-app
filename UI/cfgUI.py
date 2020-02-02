@@ -2,6 +2,8 @@ from Tkinter import *
 
 import UI.enofaref as enofaref, UI.efakturex as efakturex
 
+import scr.dacon as dacon
+
 class UI:
     class menubar:
         def __init__(self, master=None, menubar=Menu):
@@ -38,3 +40,17 @@ class UI:
         def efakturex(self):
             # open UI efaktur export
             efakturex.UI(self.master)
+
+class get:
+    def __init__(self):
+        self.O = dacon.Out()
+    def list_csv(self):
+        list_csv = self.O.list().csv()
+        return list_csv
+
+class save:
+    def __init__(self):
+        self.I = dacon.In()
+    def enofa_number(self, enofa_awal, enofa_akhir):
+        pass
+        

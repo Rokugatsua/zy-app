@@ -8,6 +8,7 @@ class cfgDir:
     UIDir =  os.path.join(BaseDir, "UI")
     ScrDir = os.path.join(BaseDir, "scr")
     DbDir = os.path.join(BaseDir, "db")
+    FileDir = os.path.join(BaseDir, "_file")
 
 class cfgInfo:
     AppName = "Zy App"

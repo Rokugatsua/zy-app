@@ -23,6 +23,7 @@ class Application(Frame):
         self.pack()
         self.initUI()
         self.mainbar()
+        self.wraper()
 
     def initUI(self):
         self.master.title(TITLE)

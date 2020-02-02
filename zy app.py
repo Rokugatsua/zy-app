@@ -20,8 +20,6 @@ class RunApplication(): # Main class for run this application.
         mainUI.run(self.info)
 
 
-
-
 def ReRun():
     RunApplication()
 
