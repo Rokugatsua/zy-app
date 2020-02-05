@@ -4,13 +4,19 @@ from scr import dacon
 
 class RunApplication(): # Main class for run this application.
     def __init__(self):
-        self.check_initialize()
-        self.run(self.get_info())
+        self.onready =  dacon.OnReady()
+        if self.check_initialize():
+            print("ready")
+            self.run(self.get_info())
+        else:
+            print("need initialize")
+            self.onready
+            ReRun()
+        
 
     def check_initialize(self):
-        onReady =  dacon.OnReady()
-        check_init = onReady.check_init()
-        print(check_init)
+        check_init = self.onready.check_init()
+        return check_init
 
 
     def get_info(self):

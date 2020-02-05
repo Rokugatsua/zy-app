@@ -144,32 +144,4 @@ class db:
         f  = self._cur.fetchall()
         return f
 
-            
-            
-
-if __name__ == "__main__":
-    enofaref = enofa_ref()
-    values = ["fauna","flora"]
-    data = []
-    for li in values:
-        i = 1
-        x = (li,i)
-        data.append(x)
-    print("data",data)
-    create_enofa_ref = Create_The(enofaref)
-    insert_enofa_ref = Insert_To(enofaref,data)
-    s = insert_enofa_ref.values()
-    print(s)
-
-    d = db(Connection().conn)
-    d.set_command(create_enofa_ref)
-    d.set_command(insert_enofa_ref)
-    d.run()
-
-    select_enofa_ref = Select_from(enofaref)
-    f = d.get(select_enofa_ref)
-    print f
-
-    
-
 

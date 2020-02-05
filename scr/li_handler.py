@@ -23,4 +23,19 @@ class Ul:
 
             return li
 
+    class db:
+        def __init__(self, file_extension):
+            self.file_extension = file_extension
+
+        def li(self):
+            li = []
+            dir_to_watch = config.cfgDir.DbDir
+
+            for r, d, f in os.walk(dir_to_watch):
+                for files in f:
+                    if self.file_extension in files:
+                        li.append(files)
+            return li
+
+
 

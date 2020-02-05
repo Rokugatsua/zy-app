@@ -1,4 +1,4 @@
-import scr.li_handler as li_handler
+import scr.li_handler as li_handler, scr.db_handler_new as db_handler
 import config
 import os
 
@@ -19,10 +19,15 @@ class OnReady:
     def check_init(self):
         # Check initialize or basic configure for this app
         default_database_name = 'database.db'
-        for root, dic, files in os.walk(config.cfgDir.DbDir):
-            print(files)
-            if default_database_name in files:
-                print(files)
-                return True
-            else:
-                return False
+
+        ul_db = li_handler.Ul.db('.db')
+        li_data = ul_db.li()
+        print li_data
+
+        if default_database_name in li_data:
+            return True
+        else:
+            return False
+
+    def initialize_app(self):
+        db_handler =''
