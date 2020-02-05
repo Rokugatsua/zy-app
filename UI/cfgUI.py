@@ -1,6 +1,7 @@
 from Tkinter import *
 
-import UI.enofaref as enofaref, UI.efakturex as efakturex
+import UI.enofaref as enofaref, UI.efakturex as efakturex, UI.createdb as createdb
+import UI.selectdb as selectdb
 
 import scr.dacon as dacon
 
@@ -13,7 +14,8 @@ class UI:
 
         def filemenu(self):
             filemenu = Menu(self.menubar, tearoff=0)
-            filemenu.add_command(label="", command=None)
+            filemenu.add_command(label="New Database", command=self.command.createdb)
+            filemenu.add_command(label="Open Database", command=self.command.selectdb)
             self.menubar.add_cascade(label="File",menu=filemenu)
 
         def addmenu(self):
@@ -41,6 +43,12 @@ class UI:
             # open UI efaktur export
             efakturex.UI(self.master)
 
+        def createdb(self):
+            createdb.UI(self.master)
+        
+        def selectdb(self):
+            selectdb.UI(self.master)
+
 class get:
     def __init__(self):
         self.O = dacon.Out()
@@ -53,4 +61,7 @@ class save:
         self.I = dacon.In()
     def enofa_number(self, enofa_awal, enofa_akhir):
         pass
+    def createdb(self, name, ondefault):
+        I = dacon.In.setting()
+        I.new_db(name,ondefault)
         

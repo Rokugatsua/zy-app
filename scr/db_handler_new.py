@@ -1,20 +1,31 @@
 #this a new dbhandler for match with command pattern.
 import abc, sqlite3, os
 
-DATABASE = "database.db"
+DATABASE = "default database.db"
+
+class Singleton(type):
+    _instance = {}
+    def  __call__(cls, *args, **kwargs):
+        if cls not in cls._instance:
+            cls._instance[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+        return cls._instance[cls]
 
 class Connection:
-    def __init__(self):
+    __metaclass__ = Singleton
+    def __init__(self,database = DATABASE):
+        global DATABASE
+        DATABASE = database
+        print("init")
+        self.conn = None
         try:
-            global DATABASE
-            DATABASE = DATABASE
-            self.conn =  sqlite3.connect("database.db")
-            print("conn",self.conn)
+            self.conn = sqlite3.connect(DATABASE)
+            print("connection to sqlite version " + str(sqlite3.version))
         except sqlite3.Error as e:
             print(e)
-        self.get_connection()
-    def get_connection(self):
+
+    def __call__(self):
         return self.conn
+
 #_____Command_____
 class Statement:
     #class object as Comand object
@@ -22,7 +33,6 @@ class Statement:
 
     @abc.abstractmethod
     def statement(self):
-        print("has execute")
         pass
 
 #_____Receiver_____
@@ -105,8 +115,8 @@ class Select_from(Statement):
 # _____Invoker_____
 class db:
     # Invoker
-    def __init__(self, conncetion):
-        self._connection = conncetion
+    def __init__(self, connection):
+        self._connection = connection
         self._cur = self._connection.cursor()
         self._command_list = []
 
@@ -125,12 +135,14 @@ class db:
 
     def commit(self):
         self._connection.commit()
+        print("has save")
     
     def run(self):
+        if not self._command_list:
+            print("empty command, set first")
         for c in self._command_list:
             statement = c.statement()
             values = c.values()
-            print values
             if values == None:
                 self.execute(statement)
             else:
@@ -145,3 +157,11 @@ class db:
         return f
 
 
+if __name__ == "__main__":
+    conn = Connection()
+    print("conn",conn)
+    print(conn())
+    dbc = db(conn())
+    conn_2 = dbc._connection
+    print(conn_2)
+    

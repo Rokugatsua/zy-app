@@ -51,7 +51,6 @@ class initialize:
     
     def save_setting(self):
         """ Save setting and make into json file"""
-        
         with open(self.setting_file,'w') as cfgfile:
             json.dump(self.setting,cfgfile)
         
@@ -60,14 +59,4 @@ class initialize:
 if __name__ == "__main__":
     #this code for debug.
     #check app status
-
-    x = cfgInfo.AppStatus
-    init = initialize()
-    init.implemented_setting()
-    s = init.get_setting()
-    print(s)
-    init.change_setting('name','zy - arps')
-    print(s)
-    init.save_setting()
-    print(cfgInfo.AppName)
-    print(x)
+    pass
