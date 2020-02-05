@@ -6,7 +6,8 @@ class RunApplication(): # Main class for run this application.
     def __init__(self):
         self.onready =  dacon.OnReady()
         if self.check_initialize():
-            print("ready")
+            cfg_init = config.initialize()
+            cfg_init.implemented_setting()
             self.run(self.get_info())
         else:
             print("need initialize")
