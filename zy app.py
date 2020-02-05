@@ -1,13 +1,16 @@
 import config
 from UI import mainUI
+from scr import dacon
 
 class RunApplication(): # Main class for run this application.
     def __init__(self):
+        self.check_initialize()
         self.run(self.get_info())
 
     def check_initialize(self):
-        on_ready = False
-        return on_ready
+        onReady =  dacon.OnReady()
+        check_init = onReady.check_init()
+        print(check_init)
 
 
     def get_info(self):
