@@ -17,6 +17,13 @@ class Out:
             new_data = [list(rows) for rows in data]
             return new_data
 
+        def get_enofa_list(self, tname):
+            enofa_list = db_handler.enofa_list(tname)
+            select_enofa_list = db_handler.Select_from(enofa_list)
+            data = self.db.get(select_enofa_list)
+            new_data = [list(rows) for rows in data]
+            return new_data
+
     class list:
         def __init__(self):
             pass

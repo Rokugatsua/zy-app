@@ -39,7 +39,54 @@ class Application(Frame):
 
     def wraper(self):
         # like ass Wraper in web, this a main frame of the application
-        pass
+        headframe = Frame(self)
+        headframe.pack()
+        get = cfgUI.get()
+        self.enofaref = get.list_enofa_ref()
+        self.option = [str(lb[5]) for lb in self.enofaref]
+        self.tname = [str(lb[1]) for lb in self.enofaref]
+
+        self.va = StringVar()
+        self.va.set(self.option[0])
+        head_om = apply(OptionMenu, (headframe, self.va) + tuple(self.option))
+        head_om.pack()
+
+        head_btn = Button(headframe, text = "refresh",command=self.refresh)
+        head_btn.pack()
+        self.listing_data()
+
+    def listing_data(self):
+        listframe = Frame(self)
+        listframe.pack()
+        
+        lb = self.va.get()
+        ix = self.option.index(lb)
+
+        tname = self.tname[ix]
+        get = cfgUI.get()
+        data = get.list_enofa_list(tname)
+        datali = [str(li[0]) for li in data if li[1] == 0]
+        self.libox = Listbox(listframe)
+
+        for li in datali:
+            self.libox.insert(END,li)
+
+        self.libox.pack()
+
+    def refresh(self):
+        lb = self.va.get()
+        ix = self.option.index(lb)
+
+        tname = self.tname[ix]
+        get = cfgUI.get()
+        data = get.list_enofa_list(tname)
+        datali = [str(li[0]) for li in data if li[1] == 0]
+        self.libox.delete(0,END)
+
+        for li in datali:
+            self.libox.insert(END,li)
+
+
 
 
 

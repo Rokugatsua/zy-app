@@ -17,7 +17,7 @@ class UI:
         def filemenu(self):
             filemenu = Menu(self.menubar, tearoff=0)
             filemenu.add_command(label="New Database", command=self.command.createdb)
-            filemenu.add_command(label="Open Database", command=self.command.selectdb)
+            #filemenu.add_command(label="Open Database", command=self.command.selectdb)
             self.menubar.add_cascade(label="File",menu=filemenu)
 
         def addmenu(self):
@@ -57,6 +57,16 @@ class get:
     def list_csv(self):
         list_csv = self.O.list().csv()
         return list_csv
+
+    def list_enofa_ref(self):
+        O = dacon.Out.to_db()
+        data = O.get_enofa_ref()
+        return data
+        
+    def list_enofa_list(self,tname):
+        O = dacon.Out.to_db()
+        data = O.get_enofa_list(tname)
+        return data
 
 class save:
     def __init__(self):
