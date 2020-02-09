@@ -33,7 +33,7 @@ class UI:
         self.libox.pack(side=LEFT, fill=BOTH)
         scroller.config(command=self.libox.yview)
 
-        btn_add = Button(bottomframe, text="Add", command = None)
+        btn_add = Button(bottomframe, text="Add", command = self.add_efaktur_export)
         btn_add.pack()
 
     def show_list(self):
@@ -42,6 +42,11 @@ class UI:
         li_data = get.list_csv()
         for li in li_data:
             self.libox.insert(END,li)
+
+    def add_efaktur_export(self):
+        var_name = self.libox.get(self.libox.curselection())
+        cfg = cfgUI.save()
+        cfg.add_enfaktur_export(var_name)
 
     def refresh(self):
         self.libox.delete(0,END)

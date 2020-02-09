@@ -1,7 +1,9 @@
 from Tkinter import *
 
-import UI.enofaref as enofaref, UI.efakturex as efakturex, UI.createdb as createdb
-import UI.selectdb as selectdb
+import enofaref
+import efakturex
+import createdb
+import selectdb
 
 import scr.dacon as dacon
 
@@ -60,8 +62,14 @@ class save:
     def __init__(self):
         self.I = dacon.In()
     def enofa_number(self, enofa_awal, enofa_akhir):
-        pass
+        to_db = self.I.to_db()
+        to_db.save_enofa_ref(enofa_awal, enofa_akhir)
     def createdb(self, name, ondefault):
         I = dacon.In.setting()
         I.new_db(name,ondefault)
+
+    def add_enfaktur_export(self, csv_name):
+        I = dacon.In()
+        I_todb = I.to_db()
+        I_todb.save_enofa_list(csv_name)
         

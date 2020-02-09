@@ -47,17 +47,47 @@ class enofa_ref:
         CREATE TABLE IF NOT EXISTS {}
         (id integer PRIMARY KEY,
         tname text NOT NULL UNIQUE,
-        number integer);
+        ref text NOT NULL,
+        awal text NOT NULL,
+        akhir text NOT NULL,
+        label text);
         """.format(str(self.tname))
         return s
 
     def insert(self):
         s = """INSERT INTO {}
-        (tname,number) VALUES(?,?)""".format(str(self.tname))
+        (tname,ref,awal,akhir,label) VALUES(?,?,?,?,?)""".format(str(self.tname))
         return s
 
     def select(self):
         s = """SELECT * FROM {}""".format(str(self.tname))
+        return s
+
+class enofa_list:
+    #receiver
+    def __init__(self, tname):
+        self.tname = tname
+
+    def create(self):
+        # the Sql statement 
+        s = """
+        CREATE TABLE IF NOT EXISTS {}
+        (enofa integer PRIMARY KEY,
+        has_report integer NOT NULL);
+        """.format(str(self.tname))
+        return s
+
+    def insert(self):
+        s = """INSERT INTO {}
+        (enofa,has_report) VALUES(?,?)""".format(str(self.tname))
+        return s
+
+    def select(self):
+        s = """SELECT * FROM {}""".format(str(self.tname))
+        return s
+
+    def update(self):
+        s = """UPDATE {} SET has_report = ? WHERE enofa= ?""".format(str(self.tname))
         return s
 
 
@@ -111,7 +141,6 @@ class Select_from(Statement):
         return s
 
 
-
 # _____Invoker_____
 class db:
     # Invoker
@@ -123,8 +152,11 @@ class db:
     def set_command(self, command):
         self._command_list.append(command)
         
-    def execute(self, statement):
-        self._cur.execute(statement)
+    def execute(self, statement,values):
+        if values is None:
+            self._cur.execute(statement)
+        else:
+            self._cur.execute(statement,values)
 
     def executemany(self, statement, values):
         try:
@@ -143,10 +175,10 @@ class db:
         for c in self._command_list:
             statement = c.statement()
             values = c.values()
-            if values == None:
-                self.execute(statement)
-            else:
+            if isinstance(values, list):
                 self.executemany(statement,values)
+            else:
+                self.execute(statement,values)
 
         self.commit()
 

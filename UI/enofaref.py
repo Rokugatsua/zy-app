@@ -1,4 +1,5 @@
 from Tkinter import *
+import cfgUI
 
 TITLE = 'Add Enofa Refrence'
 WINRES = '600x400'
@@ -44,6 +45,9 @@ class UI:
     def save_enofa_ref(self):
         varenofas = self.var_enofas.get()
         varenofae = self.var_enofae.get()
+
+        cfg_save = cfgUI.save()
+        cfg_save.enofa_number(varenofas,varenofae)
 
         # function under development for send variable enofa awal and akhir for save in db
 
